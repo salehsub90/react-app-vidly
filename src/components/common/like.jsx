@@ -3,18 +3,18 @@ import React from 'react';
 //input : liked: boolean
 //outputL onClick
 
-const Like = (props) => {
+const Like = ({ liked, onClick }) => {
   let classes = "fa fa-heart";
-  if (!props.liked) {
+  if (!liked) {
     classes += "-o";
   }
   return (
-    <i onClick={props.onClick} 
+    <i onClick={onClick} 
       style={{ cursor: "pointer" }}
       className={classes} 
       aria-hidden="true">          
     </i>
   );
 }
- 
+
 export default Like;
