@@ -1,46 +1,31 @@
-import React, { Component } from 'react';
-import Input from './common/input';
+import React from 'react';
+import Form from './common/form';
+import Joi from 'joi-browser';
 
-class LoginForm extends Component {
+class LoginForm extends Form {
 
   state = {
-    account: {username: '', password: ''}
+    data: {username: '', password: ''},
+    errors: {}
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    //const username = this.username.current.value;
+  schema = {
+    username: Joi.string().required().label('Username'),
+    password: Joi.string().required().label('Password')
+  }
 
-    // call the server for submission
+  doSubmit = () => {
     console.log("submitted");
-  };
-
-  handleChange = ({ currentTarget: input}) => {
-    console.log(input.value);
-    const account = {...this.state.account};
-    account[input.name] = input.value;
-    this.setState({ account });
   }
 
   render() {
-    const { account } = this.state;
     return (
       <div>
         <h1>Login</h1>
         <form onSubmit={this.handleSubmit}>
-          <Input
-            name="username"
-            value={account.username}
-            lable="Username"
-            onChange={this.handleChange}
-          />
-          <Input
-            name="password"
-            value={account.password}
-            lable="Password"
-            onChange={this.handleChange}
-          />        
-        <button className="btn btn-primary">Login</button>
+          {this.renderInput('username', 'Username')}
+          {this.renderInput('password', 'Password', 'password')}            
+          {this.renderButton('Login')}
         </form>
       </div>
     )    
